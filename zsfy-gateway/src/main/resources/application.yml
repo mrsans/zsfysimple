@@ -1,0 +1,41 @@
+server:
+  port: 10001
+spring:
+  application:
+    name: zuulApplication
+fallback:
+  tip: "{status: 500, message: system is error !}"
+zuul:
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+    ignoredServices: '*'
+  routes:
+    path: /user/**
+    service-id: userApplication
+# 网关熔断器
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+# Eureka注册
+eureka:
+  username: 123qwe
+  password: 123qwe
+  host: 127.0.0.1
+  port: 8761
+  client:
+    service-url:
+      defaultZone:
+        http://${eureka.username}:${eureka.password}@${eureka.host}:${eureka.port}/eureka/
+#  展示IP
+  instance:
+    prefer-ip-address: true
+
+
+
+

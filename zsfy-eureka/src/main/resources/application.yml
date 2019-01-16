@@ -1,0 +1,25 @@
+#Eureka服务注册中心
+server:
+  port: 8761
+spring:
+  application:
+    name: zsfy-euruka
+  # 配置eureka的安全中心
+  security:
+    user:
+      name: 123qwe
+      password: 123qwe
+# Eureka的默认注册地址
+eureka:
+  instance:
+      hostname: localhost
+  server:
+  # eureka 关闭自我保护机制，如果是网络原因，那么eureka可以有自己的缓存能够维持继续访问
+      enable-self-preservation: false
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${server.port}/eureka/
+    # 禁止eureka向自己注册，eureka会自己向自己注册服务，如果禁止那么就是单机版
+    register-with-eureka: false
+    fetch-registry: false
+
