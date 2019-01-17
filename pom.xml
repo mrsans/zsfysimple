@@ -11,6 +11,7 @@
     <modules>
         <module>zsfy-eureka</module>
         <module>zsfy-gateway</module>
+        <module>zsfy-login</module>
 
     </modules>
 
@@ -40,18 +41,6 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <!--mybatis-->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-version}</version>
-            </dependency>
-            <!--分页-->
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper</artifactId>
-                <version>${pagehelper-version}</version>
             </dependency>
             <!-- shiro -->
             <dependency>
