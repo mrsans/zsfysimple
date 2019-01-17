@@ -1,12 +1,14 @@
 package com.thunisoft.config;
 
-import com.thunisoft.bean.User;
+import com.thunisoft.bean.WxAccount;
+import com.thunisoft.service.IWxAccount;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +20,9 @@ import java.util.Set;
  * @Description:
  */
 public class ZsfyShiroRealm extends AuthorizingRealm {
+
+    @Autowired
+    private IWxAccount wxAccountService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -45,14 +50,13 @@ public class ZsfyShiroRealm extends AuthorizingRealm {
         if (token.getPrincipal() == null) {
             return null;
         }
-        //获取用户信息
-        User user = new User();//userService.login(token.getUsername());
-        if (user == null) {
+        final WxAccount wxAccount = wxAccountService.login(token.getUsername());
+        if (wxAccount == null) {
             //这里返回后会报出对应异常
             return null;
         } else {
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
-            SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(token.getPrincipal(), user.getPassword(), getName());
+            SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(token.getPrincipal(), wxAccount.getPassword(), getName());
             return simpleAuthenticationInfo;
         }
     }

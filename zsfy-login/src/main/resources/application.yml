@@ -4,12 +4,16 @@ server:
   port: 10002
 spring:
   application:
-    name: userApplication
+    name: loginApplication
   redis:
     host: localhost
     port: 6379
     password:
-
+  datasource:
+    url: jdbc:mysql://localhost:3306/test1?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
 # Eureka注册
 eureka:
   username: 123qwe
