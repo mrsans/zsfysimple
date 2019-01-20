@@ -12,6 +12,7 @@
         <module>zsfy-eureka</module>
         <module>zsfy-gateway</module>
         <module>zsfy-login</module>
+        <module>zsfy-user</module>
 
     </modules>
 

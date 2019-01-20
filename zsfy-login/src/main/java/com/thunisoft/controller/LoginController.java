@@ -14,13 +14,24 @@ public class LoginController {
     @Autowired
     private IWxAccount wxAccount;
 
-    @GetMapping("/login/{username}/{password}")
+    @GetMapping("/user")
     @ResponseBody
-    public Object login(@PathVariable("username")String username, @PathVariable("password")String password) {
+    public Object login(@RequestParam("username")String username, @RequestParam("password")String password) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
         subject.login(token);
         return "success";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "/login";
+    }
+
+    @GetMapping("/index")
+    @ResponseBody
+    public String index() {
+        return "index";
     }
 
 }

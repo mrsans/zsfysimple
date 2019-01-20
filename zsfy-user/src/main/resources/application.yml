@@ -1,0 +1,26 @@
+# 访问Druid的监控web
+# http://IP:{server.port}/druid/index.html
+server:
+  port: 10003
+spring:
+  application:
+    name: userApplication
+
+# Eureka注册
+eureka:
+  username: 123qwe
+  password: 123qwe
+  host: 127.0.0.1
+  port: 8761
+  client:
+    service-url:
+      defaultZone:
+        http://${eureka.username}:${eureka.password}@${eureka.host}:${eureka.port}/eureka/
+#  展示IP
+  instance:
+    prefer-ip-address: true
+
+
+
+
+

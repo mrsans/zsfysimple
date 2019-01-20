@@ -3,16 +3,26 @@ server:
 spring:
   application:
     name: zuulApplication
+  redis:
+    host: localhost
+    port: 6379
+
 fallback:
   tip: "{status: 500, message: system is error !}"
 zuul:
+  add-proxy-headers: true
   host:
-    socket-timeout-millis: 60000
-    connect-timeout-millis: 60000
+    socket-timeout-millis: 600000
+    connect-timeout-millis: 600000
     ignoredServices: '*'
   routes:
-    path: /user/**
-    service-id: userApplication
+    users:
+      path: /user/**
+      service-id: userApplication
+    login:
+      path: /login/**
+      service-id: loginApplication
+
 # 网关熔断器
 hystrix:
   command:
@@ -20,7 +30,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 60000
+            timeoutInMilliseconds: 600000
 
 # Eureka注册
 eureka:
@@ -36,6 +46,8 @@ eureka:
   instance:
     prefer-ip-address: true
 
-
-
-
+ribbon:
+  eureka:
+    enable: false
+  ReadTimeout: 60000
+  ConnectTimeout: 60000

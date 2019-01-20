@@ -3,6 +3,9 @@ package com.thunisoft.utils;
 import io.jsonwebtoken.Claims;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+import org.springframework.util.PatternMatchUtils;
+
+import java.awt.print.Printable;
 
 import static org.junit.Assert.*;
 
@@ -21,5 +24,10 @@ public class JWTUtilsTest {
         final String jwt = JWTUtils.createJWT(TEST_SUB);
         final Claims claims = JWTUtils.parseJWT(jwt);
         assertTrue("jwt生成或解析失败", StringUtils.equals(claims.getSubject(), TEST_SUB));
+    }
+
+    @Test
+    public void test1() {
+        System.out.println(PatternMatchUtils.simpleMatch("/login*/**", "/login"));
     }
 }

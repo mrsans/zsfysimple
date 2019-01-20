@@ -17,7 +17,7 @@ import java.io.IOException;
  * @Version 1.0
  * @Description:
  */
-@Configuration
+
 public class ShiroFilter extends AccessControlFilter {
     private Logger logger = LoggerFactory.getLogger(ShiroFilter.class);
     /**
@@ -25,7 +25,7 @@ public class ShiroFilter extends AccessControlFilter {
      */
     private static final String AUTH_TOKEN = "auth_token";
     /**
-     *返回false
+     * 返回 false
      * @param servletRequest
      * @param servletResponse
      * @param o
