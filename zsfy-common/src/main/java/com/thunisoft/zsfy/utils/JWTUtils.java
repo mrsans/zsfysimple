@@ -1,16 +1,13 @@
-package com.thunisoft.utils;
+package com.thunisoft.zsfy.utils;
 
+import com.thunisoft.zsfy.constant.Constants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import sun.swing.plaf.synth.DefaultSynthStyle;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Author ZhPJ
@@ -22,8 +19,6 @@ public abstract class JWTUtils {
 
     private final static Key SIGN_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    private final static long EX_TIME = TimeUnit.DAYS.toSeconds(1);
-
     private final static String ISSUER = "zsfy";
 
     /**
@@ -32,7 +27,7 @@ public abstract class JWTUtils {
      * @return: 得到jwt
      */
     public static String createJWT(String subject) {
-        final long extime = System.currentTimeMillis() + EX_TIME;
+        final long extime = System.currentTimeMillis() + Constants.TimeExpiration.ONE_DAY;
         String jws = Jwts.builder()
                 .setSubject(subject)
                 .setIssuer(ISSUER)

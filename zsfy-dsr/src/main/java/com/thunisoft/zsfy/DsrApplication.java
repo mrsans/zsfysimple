@@ -1,4 +1,4 @@
-package com.thunisoft;
+package com.thunisoft.zsfy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,14 +9,16 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class UserApplication {
+public class DsrApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(UserApplication.class, args);
+        SpringApplication.run(DsrApplication.class, args);
     }
 
     @Bean
     @Primary
-    public RestTemplate restTemplate() {
+    public RestTemplate restTemplate () {
         return new RestTemplate();
     }
+
 }

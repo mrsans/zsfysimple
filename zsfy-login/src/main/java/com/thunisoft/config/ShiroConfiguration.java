@@ -11,12 +11,6 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.Filter;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,15 +23,6 @@ import java.util.Map;
 @Configuration
 public class ShiroConfiguration extends DefaultWebSessionManager {
 
-
-    @Override
-    public Serializable getSessionId(ServletRequest servletRequest, ServletResponse servletResponse) {
-        final HttpServletRequest request = (HttpServletRequest) servletRequest;
-        final HttpServletResponse response = (HttpServletResponse) servletRequest;
-
-        return null;
-
-    }
 
     //将自己的验证方式加入容器
     @Bean
@@ -80,11 +65,10 @@ public class ShiroConfiguration extends DefaultWebSessionManager {
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login/**");
         chainsMap.put("/user/**","anon");
-
         //首页
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        //shiroFilterFactoryBean.setSuccessUrl("/index");
         //错误页面，认证不通过跳转
-//        shiroFilterFactoryBean.setUnauthorizedUrl("/error");
+        //shiroFilterFactoryBean.setUnauthorizedUrl("/error");
         //对所有用户认证
         chainsMap.put("/**","authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(chainsMap);

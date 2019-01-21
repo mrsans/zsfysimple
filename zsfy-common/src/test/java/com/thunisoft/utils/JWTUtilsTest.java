@@ -1,5 +1,6 @@
 package com.thunisoft.utils;
 
+import com.thunisoft.zsfy.utils.JWTUtils;
 import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -18,8 +19,8 @@ public class JWTUtilsTest {
 
     @Test
     public void createOrParseJWT() {
-        final String jwt = com.thunisoft.utils.JWTUtils.createJWT(TEST_SUB);
-        final Claims claims = com.thunisoft.utils.JWTUtils.parseJWT(jwt);
+        final String jwt = JWTUtils.createJWT(TEST_SUB);
+        final Claims claims = JWTUtils.parseJWT(jwt);
         System.out.println(claims.getSubject());
         assertTrue("jwt生成或解析失败", StringUtils.equals(claims.getSubject(), TEST_SUB));
     }

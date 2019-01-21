@@ -5,14 +5,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import com.thunisoft.utils.JWTUtils;
+import com.thunisoft.zsfy.utils.JWTUtils;
 import io.jsonwebtoken.Claims;
-import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,7 +24,7 @@ import java.util.Map;
 /**
  * 先放着 看是否有必要
  */
-@Component
+//@Component
 public class ZsfyZuulPostFilter extends ZuulFilter{
 
     private final String STATUS_CODE = "code";
@@ -59,8 +57,8 @@ public class ZsfyZuulPostFilter extends ZuulFilter{
                 final JSONObject jsonUserInfo = JSON.parseObject(subject);
                 params.put("username", "");
                 params.put("password", "");
-                jsonUserInfo.get();
-                restTemplate.getForEntity(, String.class,params );
+//                jsonUserInfo.get();
+//                restTemplate.getForEntity(, String.class,params );
             }
         } catch (IOException e) {
             e.printStackTrace();

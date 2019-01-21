@@ -1,5 +1,3 @@
-# 访问Druid的监控web
-# http://IP:{server.port}/druid/index.html
 server:
   port: 10002
 spring:

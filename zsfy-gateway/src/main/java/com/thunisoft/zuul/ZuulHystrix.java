@@ -1,5 +1,6 @@
 package com.thunisoft.zuul;
 
+import com.thunisoft.zsfy.constant.MessageTips;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.http.HttpHeaders;
@@ -14,9 +15,6 @@ import java.io.InputStream;
 
 @Component
 public class ZuulHystrix implements FallbackProvider {
-
-    @Value("${fallback.tip}")
-    private String fallbackTip;
 
     @Override
     public String getRoute() {
@@ -49,7 +47,7 @@ public class ZuulHystrix implements FallbackProvider {
 
             @Override
             public InputStream getBody() throws IOException {
-                return new ByteArrayInputStream(fallbackTip.getBytes());
+                return new ByteArrayInputStream(MessageTips.ZuulMessageErrorTip.MESSAGE.getBytes());
             }
 
             @Override

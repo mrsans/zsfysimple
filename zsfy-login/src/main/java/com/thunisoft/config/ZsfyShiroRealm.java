@@ -2,16 +2,11 @@ package com.thunisoft.config;
 
 import com.thunisoft.bean.WxAccount;
 import com.thunisoft.service.IWxAccount;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @Author ZhPJ
@@ -21,21 +16,12 @@ import java.util.Set;
  */
 public class ZsfyShiroRealm extends AuthorizingRealm {
 
-    /**
-     * 认证的TOKEN值
-     */
-    private final String AUTH_TOKEN = "auth_token";
-    /**
-     * redis的token前缀
-     */
-    private final String RKEY_TOKEN_PREFIX = "token_";
-
     @Autowired
     private IWxAccount wxAccountService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String username = (String) SecurityUtils.getSubject().getPrincipal();
+        /*String username = (String) SecurityUtils.getSubject().getPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //获得该用户角色
         String role = "";
@@ -44,25 +30,21 @@ public class ZsfyShiroRealm extends AuthorizingRealm {
         set.add(role);
         //设置该用户拥有的角色
         info.setRoles(set);
-        return info;
+        return info;*/
+        return null;
     }
 
-    /**
-     * @deprecation: 用户认证
-     * @param:
-     * @return:
-     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         //加这一步的目的是在Post请求的时候会先进认证，然后在到请求
         if (token.getPrincipal() == null) {
-            return null;
+            throw new UnknownAccountException();
         }
         final WxAccount wxAccount = wxAccountService.login(token.getUsername());
         if (wxAccount == null) {
             //这里返回后会报出对应异常
-            return null;
+            throw new UnknownAccountException();
         } else {
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(token.getPrincipal(), wxAccount.getPassword(), getName());

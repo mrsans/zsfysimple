@@ -48,16 +48,6 @@ public class ShiroFilter extends AccessControlFilter {
         logger.info("on access denied");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String jwt = request.getHeader(AUTH_TOKEN);
-        /*if (JWTUtils.verifyToken(jwt)) {
-            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(jwt, jwt);
-            try {
-                //委托realm进行登录认证
-                getSubject(servletRequest, servletResponse).login(usernamePasswordToken);
-                return true;
-            }catch (Exception e) {
-                return false;
-            }
-        }*/
         redirectToLogin(servletRequest,servletResponse);
         return false;
     }

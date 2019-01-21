@@ -7,8 +7,6 @@ spring:
     host: localhost
     port: 6379
 
-fallback:
-  tip: "{status: 500, message: system is error !}"
 zuul:
   add-proxy-headers: true
   host:
@@ -22,6 +20,9 @@ zuul:
     login:
       path: /login/**
       service-id: loginApplication
+    dsrs:
+      path: /dsr/**
+      service-id: dsrApplication
   sensitive-headers: "*"
 
 # 网关熔断器

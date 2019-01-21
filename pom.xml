@@ -12,8 +12,8 @@
         <module>zsfy-eureka</module>
         <module>zsfy-gateway</module>
         <module>zsfy-login</module>
-        <module>zsfy-user</module>
         <module>zsfy-common</module>
+        <module>zsfy-dsr</module>
 
     </modules>
 
@@ -30,6 +30,8 @@
         <java.version>1.8</java.version>
         <mybatis-version>1.3.2</mybatis-version>
         <pagehelper-version>5.0.4</pagehelper-version>
+        <fastjson-version>1.2.46</fastjson-version>
+        <jsonwebtoken-version>0.10.5</jsonwebtoken-version>
         <shiro.version>1.4.0-RC2</shiro.version>
         <spring-cloud.version>Finchley.SR1</spring-cloud.version>
     </properties>
@@ -60,6 +62,46 @@
                 <artifactId>shiro-spring-boot-web-starter</artifactId>
                 <version>${shiro.version}</version>
             </dependency>
+            <!--zuul 网关-->
+            <!--<dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+            </dependency>-->
+            <!--eureka 客户端-->
+           <!-- <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            </dependency>-->
+            <!--spring cloud Eureka server-->
+            <!--<dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+            </dependency>-->
+            <!--jwt-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jsonwebtoken-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jsonwebtoken-version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jsonwebtoken-version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <!--json-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson-version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

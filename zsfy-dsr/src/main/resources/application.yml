@@ -1,11 +1,14 @@
 # 访问Druid的监控web
 # http://IP:{server.port}/druid/index.html
 server:
-  port: 10003
+  port: 8999
 spring:
   application:
-    name: userApplication
-
+    name: dsrApplication
+  redis:
+    host: localhost
+    port: 6379
+    password:
 # Eureka注册
 eureka:
   username: 123qwe

@@ -9,18 +9,27 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>zsfy-user</artifactId>
-
+    <artifactId>zsfy-dsr</artifactId>
 
     <dependencies>
+        <!--zsfy-common-->
+        <dependency>
+            <groupId>com.thunisoft</groupId>
+            <artifactId>zsfy-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--springboot web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!--eureka-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>
