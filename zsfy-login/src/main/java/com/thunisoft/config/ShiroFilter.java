@@ -4,7 +4,6 @@ import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -17,7 +16,6 @@ import java.io.IOException;
  * @Version 1.0
  * @Description:
  */
-
 public class ShiroFilter extends AccessControlFilter {
     private Logger logger = LoggerFactory.getLogger(ShiroFilter.class);
     /**

@@ -13,6 +13,7 @@
         <module>zsfy-gateway</module>
         <module>zsfy-login</module>
         <module>zsfy-user</module>
+        <module>zsfy-common</module>
 
     </modules>
 

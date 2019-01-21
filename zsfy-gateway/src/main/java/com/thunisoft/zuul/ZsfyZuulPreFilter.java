@@ -6,6 +6,7 @@ import com.netflix.zuul.exception.ZuulException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.codec.multipart.Part;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * 先放着 看是否有必要
  */
 @Component
-public class ZsfyZuulFilter extends ZuulFilter{
+public class ZsfyZuulPreFilter extends ZuulFilter{
 
     private final String AUTH_TOKEN = "auth_token";
 
@@ -46,7 +47,7 @@ public class ZsfyZuulFilter extends ZuulFilter{
 
     @Override
     public String filterType() {
-        return "pre";
+        return FilterConstants.PRE_TYPE;
     }
 
     @Override

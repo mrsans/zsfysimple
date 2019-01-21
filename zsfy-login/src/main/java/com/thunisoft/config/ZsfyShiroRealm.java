@@ -9,7 +9,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,15 +33,12 @@ public class ZsfyShiroRealm extends AuthorizingRealm {
     @Autowired
     private IWxAccount wxAccountService;
 
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = (String) SecurityUtils.getSubject().getPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //获得该用户角色
-        String role = "111";
+        String role = "";
         Set<String> set = new HashSet<>();
         //需要将 role 封装到 Set 作为 info.setRoles() 的参数
         set.add(role);
@@ -58,7 +54,6 @@ public class ZsfyShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         //加这一步的目的是在Post请求的时候会先进认证，然后在到请求
         if (token.getPrincipal() == null) {

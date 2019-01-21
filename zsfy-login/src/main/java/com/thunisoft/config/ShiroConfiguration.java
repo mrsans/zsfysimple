@@ -1,6 +1,5 @@
 package com.thunisoft.config;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.mgt.SessionStorageEvaluator;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -9,12 +8,15 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.DefaultWebSessionStorageEvaluator;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +30,15 @@ import java.util.Map;
 public class ShiroConfiguration extends DefaultWebSessionManager {
 
 
+    @Override
+    public Serializable getSessionId(ServletRequest servletRequest, ServletResponse servletResponse) {
+        final HttpServletRequest request = (HttpServletRequest) servletRequest;
+        final HttpServletResponse response = (HttpServletResponse) servletRequest;
+
+        return null;
+
+    }
+
     //将自己的验证方式加入容器
     @Bean
     public ZsfyShiroRealm myShiroRealm() {
@@ -35,23 +46,12 @@ public class ShiroConfiguration extends DefaultWebSessionManager {
         return zsfyShiroRealm;
     }
 
-    @Bean
-    public ZsfyAuth zsfyAuth() {
-        return new ZsfyAuth();
-    }
-
     @Bean(value = "securityManger")
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());
-        // 不存储会话
-//        DefaultSessionStorageEvaluator sessionStorageEvaluator = new DefaultSessionStorageEvaluator();
-//        sessionStorageEvaluator.setSessionStorageEnabled(false);
-
-//        DefaultSessionManager sessionManager = new DefaultSessionManager();
-//        sessionManager.setSessionValidationSchedulerEnabled(false);
-//        securityManager.setSessionManager(sessionManager);
-
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setSessionIdUrlRewritingEnabled(false);
         return securityManager;
     }
     /**
@@ -74,7 +74,6 @@ public class ShiroConfiguration extends DefaultWebSessionManager {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String,String> chainsMap = new HashMap<String, String>();
-        Map<String, Filter> filterMap = new HashMap<String, Filter>();
 
         //登出
 //        chainsMap.put("/logout","logout");
@@ -88,7 +87,6 @@ public class ShiroConfiguration extends DefaultWebSessionManager {
 //        shiroFilterFactoryBean.setUnauthorizedUrl("/error");
         //对所有用户认证
         chainsMap.put("/**","authc");
-        filterMap.put("authc", zsfyAuth());
         shiroFilterFactoryBean.setFilterChainDefinitionMap(chainsMap);
         return shiroFilterFactoryBean;
     }
