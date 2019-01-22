@@ -1,6 +1,6 @@
-package com.thunisoft.service;
+package com.thunisoft.zsfy.service;
 
-import com.thunisoft.bean.WxAccount;
+import com.thunisoft.zsfy.bean.WxAccount;
 
 /**
  * @Author ZhPJ

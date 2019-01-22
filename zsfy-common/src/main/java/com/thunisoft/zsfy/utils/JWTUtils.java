@@ -1,6 +1,7 @@
 package com.thunisoft.zsfy.utils;
 
 import com.thunisoft.zsfy.constant.Constants;
+import com.thunisoft.zsfy.constant.TimeExpiration;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -27,7 +28,7 @@ public abstract class JWTUtils {
      * @return: 得到jwt
      */
     public static String createJWT(String subject) {
-        final long extime = System.currentTimeMillis() + Constants.TimeExpiration.ONE_DAY;
+        final long extime = System.currentTimeMillis() + TimeExpiration.THREE_MONTHS;
         String jws = Jwts.builder()
                 .setSubject(subject)
                 .setIssuer(ISSUER)

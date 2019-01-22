@@ -22,19 +22,5 @@ public interface Constants {
 
     }
 
-    /**
-     * redis的过期时间
-     */
-    interface TimeExpiration {
-
-        /**
-         * 设置redis的过期时间
-         */
-        long ONE_DAY = TimeUnit.DAYS.toSeconds(1);
-
-    }
-
-
-
 
 }

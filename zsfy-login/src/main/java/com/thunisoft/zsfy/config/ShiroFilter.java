@@ -1,4 +1,4 @@
-package com.thunisoft.config;
+package com.thunisoft.zsfy.config;
 
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;

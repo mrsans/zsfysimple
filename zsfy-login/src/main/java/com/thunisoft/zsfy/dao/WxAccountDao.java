@@ -1,6 +1,6 @@
-package com.thunisoft.dao;
+package com.thunisoft.zsfy.dao;
 
-import com.thunisoft.bean.WxAccount;
+import com.thunisoft.zsfy.bean.WxAccount;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

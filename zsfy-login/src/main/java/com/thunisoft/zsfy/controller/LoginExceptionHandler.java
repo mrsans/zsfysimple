@@ -1,4 +1,4 @@
-package com.thunisoft.controller;
+package com.thunisoft.zsfy.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.shiro.authc.UnknownAccountException;

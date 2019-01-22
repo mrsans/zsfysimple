@@ -1,4 +1,4 @@
-package com.thunisoft.zuul;
+package com.thunisoft.zsfy.zuul;
 
 
 import org.springframework.boot.SpringApplication;

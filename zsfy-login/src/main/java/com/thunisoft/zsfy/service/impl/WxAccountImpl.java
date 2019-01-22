@@ -1,8 +1,8 @@
-package com.thunisoft.service.impl;
+package com.thunisoft.zsfy.service.impl;
 
-import com.thunisoft.bean.WxAccount;
-import com.thunisoft.dao.WxAccountDao;
-import com.thunisoft.service.IWxAccount;
+import com.thunisoft.zsfy.bean.WxAccount;
+import com.thunisoft.zsfy.dao.WxAccountDao;
+import com.thunisoft.zsfy.service.IWxAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

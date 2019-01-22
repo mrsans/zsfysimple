@@ -17,6 +17,17 @@
 
     </modules>
 
+    <distributionManagement>
+        <repository>
+            <id>public-repo</id>
+            <url>http://repo.thunisoft.com/maven2/content/repositories/cmptreleases</url>
+        </repository>
+        <snapshotRepository>
+            <id>public-snapshots</id>
+            <url>http://repo.thunisoft.com/maven2/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -45,6 +56,12 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!--dzfy-->
+            <dependency>
+                <groupId>com.thunisoft.dzfy</groupId>
+                <artifactId>dzfy-core</artifactId>
+                <version>2.4.1-SNAPSHOT</version>
             </dependency>
             <!-- shiro -->
             <dependency>

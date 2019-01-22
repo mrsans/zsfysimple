@@ -1,7 +1,6 @@
-package com.thunisoft.zuul;
+package com.thunisoft.zsfy.zuul;
 
 import com.thunisoft.zsfy.constant.MessageTips;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

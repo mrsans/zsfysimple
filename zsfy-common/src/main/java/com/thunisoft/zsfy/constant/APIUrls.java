@@ -2,9 +2,9 @@ package com.thunisoft.zsfy.constant;
 
 public interface APIUrls {
     /**
-     * 远程版本号
+     * 版本号
      */
-    String version = "";
+    String VERSION = "";
     /**
      * 基础路径
      */
@@ -19,6 +19,13 @@ public interface APIUrls {
      * 法官基础路径
      */
     String BASE_FG_URL = "";
+
+    /**
+     * 公用的APIS
+     */
+    interface PubAPIS {
+
+    }
 
     /**
      * 当事人请求的urls

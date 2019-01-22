@@ -1,7 +1,7 @@
-package com.thunisoft.config;
+package com.thunisoft.zsfy.config;
 
-import com.thunisoft.bean.WxAccount;
-import com.thunisoft.service.IWxAccount;
+import com.thunisoft.zsfy.bean.WxAccount;
+import com.thunisoft.zsfy.service.IWxAccount;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;

@@ -38,4 +38,7 @@ public abstract class UUIDHelper {
         return uuid.substring(0, num);
     }
 
+    public static final  String getUUIDNoDivider() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
+    }
 }

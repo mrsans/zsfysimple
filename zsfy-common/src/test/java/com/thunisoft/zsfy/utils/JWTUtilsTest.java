@@ -1,6 +1,5 @@
-package com.thunisoft.utils;
+package com.thunisoft.zsfy.utils;
 
-import com.thunisoft.zsfy.utils.JWTUtils;
 import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -23,6 +22,12 @@ public class JWTUtilsTest {
         final Claims claims = JWTUtils.parseJWT(jwt);
         System.out.println(claims.getSubject());
         assertTrue("jwt生成或解析失败", StringUtils.equals(claims.getSubject(), TEST_SUB));
+    }
+
+    @Test
+    public void test1 () {
+        final String format = String.format("%s_%s", "222", null);
+        System.out.println(format);
     }
 
 }

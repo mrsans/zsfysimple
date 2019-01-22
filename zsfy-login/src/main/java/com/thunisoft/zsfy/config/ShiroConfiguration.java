@@ -1,4 +1,4 @@
-package com.thunisoft.config;
+package com.thunisoft.zsfy.config;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.mgt.SessionStorageEvaluator;

@@ -1,12 +1,15 @@
-package com.thunisoft.controller;
+package com.thunisoft.zsfy.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thunisoft.bean.WxAccount;
-import com.thunisoft.service.IWxAccount;
+import com.thunisoft.zsfy.bean.WxAccount;
 import com.thunisoft.zsfy.constant.Constants;
+import com.thunisoft.zsfy.constant.RedisKeys;
+import com.thunisoft.zsfy.constant.TimeExpiration;
+import com.thunisoft.zsfy.service.IWxAccount;
 import com.thunisoft.zsfy.utils.JWTUtils;
 import com.thunisoft.zsfy.utils.UUIDHelper;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -19,13 +22,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class LoginController {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
 
     @Autowired
     private IWxAccount wxAccount;
@@ -43,13 +50,14 @@ public class LoginController {
         final WxAccount wxAccount = this.wxAccount.login(username);
         final String jsonWx = objectMapper.writeValueAsString(wxAccount);
         final String jwt = JWTUtils.createJWT(jsonWx);
-        stringRedisTemplate.opsForValue().set(tokenAuth, jwt, Constants.TimeExpiration.ONE_DAY);
+        final String r_token = String.format("%s_%s", RedisKeys.R_TOKEN, tokenAuth);
+        stringRedisTemplate.opsForValue().set(r_token, jwt, TimeExpiration.THREE_MONTHS, TimeUnit.SECONDS);
         return "success";
     }
 
     @GetMapping("/login")
     public String login(HttpServletResponse response) {
-        final String uuidNoDivider = UUIDHelper.getUUIDNoDivider(0);
+        final String uuidNoDivider = UUIDHelper.getUUIDNoDivider();
         Cookie cookie = new Cookie(Constants.CookiesKey.TOKEN_AUTH, uuidNoDivider.toUpperCase());
         cookie.setHttpOnly(true);
         response.setCharacterEncoding("UTF-8");
@@ -58,5 +66,23 @@ public class LoginController {
         return "/login";
     }
 
+    @GetMapping("/logout")
+    @ResponseBody
+    public String logout (HttpServletRequest request, HttpServletResponse response,
+                          @CookieValue(Constants.CookiesKey.TOKEN_AUTH) String tokenAuth) {
+        // 清除cookie
+        final Cookie[] cookies = request.getCookies();
+        Arrays.stream(cookies).filter(cookie ->
+            StringUtils.equals(cookie.getName(), Constants.CookiesKey.TOKEN_AUTH)
+        ).forEach(cookie -> {
+            cookie.setValue(null);
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        });
+        // 清除redis
+        final String r_token = String.format("%s_%s", RedisKeys.R_TOKEN, tokenAuth);
+        stringRedisTemplate.expire(r_token, TimeExpiration.ZERO_SECOND, TimeUnit.MILLISECONDS);
 
+        return "login success";
+    }
 }

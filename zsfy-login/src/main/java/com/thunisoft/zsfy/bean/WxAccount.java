@@ -1,4 +1,4 @@
-package com.thunisoft.bean;
+package com.thunisoft.zsfy.bean;
 
 import lombok.Getter;
 import lombok.Setter;
