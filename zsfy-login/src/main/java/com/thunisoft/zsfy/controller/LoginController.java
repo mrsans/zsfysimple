@@ -36,7 +36,7 @@ public class LoginController {
     @Autowired
     private ILoginService loginService;
 
-    @GetMapping("/login")
+    @GetMapping("/login" )
     public Object login(@RequestParam("username")String username, @RequestParam("password")String password,
                         @CookieValue(Constants.CookiesKey.TOKEN_AUTH) String tokenAuth) throws JsonProcessingException {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
