@@ -1,5 +1,5 @@
 server:
-  port: 10001
+  port: 9999
 spring:
   application:
     name: zuulApplication
@@ -9,6 +9,7 @@ spring:
 
 zuul:
   add-proxy-headers: true
+#  add-host-header: true
   host:
     socket-timeout-millis: 600000
     connect-timeout-millis: 600000

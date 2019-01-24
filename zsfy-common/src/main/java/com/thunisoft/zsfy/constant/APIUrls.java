@@ -1,43 +1,51 @@
 package com.thunisoft.zsfy.constant;
 
-public interface APIUrls {
+public abstract class APIUrls {
     /**
      * 版本号
      */
-    String VERSION = "";
+    private final static String VERSION = "";
     /**
      * 基础路径
      */
-    String BASE_URL = "";
+    private final static String BASE_URL = "http://172.18.9.80:8080/wsfy-ww/";
 
     /**
      * 当事人基础路径
      */
-    String BASE_DSR_URL = "";
+    private final static String BASE_DSR_URL = "";
 
     /**
      * 法官基础路径
      */
-    String BASE_FG_URL = "";
+    private final static String BASE_FG_URL = "";
 
     /**
      * 公用的APIS
      */
-    interface PubAPIS {
+    public interface PubAPIS {
+        /**
+         * 获取时间戳 用于登录
+         */
+        String GET_CURRENTTIME = BASE_URL + "/api/authentication/getCurrentTime.htm";
+        /**
+         * 用于登录
+         */
+        String AUTHENTICATION_OF_TEMPLOGIN = BASE_URL + "/api/authentication/doTempLogin.htm";
 
     }
 
     /**
      * 当事人请求的urls
      */
-    interface DsrUrls {
+    public interface DsrUrls {
 
     }
 
     /**
      * 法官请求的urls
      */
-    interface FgUrls {
+    public interface FgUrls {
 
     }
 

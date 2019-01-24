@@ -22,5 +22,10 @@ public interface Constants {
 
     }
 
+    /**
+     * 密钥相关
+     */
+    interface KEYS {
+    }
 
 }

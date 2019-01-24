@@ -14,19 +14,9 @@
         <module>zsfy-login</module>
         <module>zsfy-common</module>
         <module>zsfy-dsr</module>
+        <module>zsfy-pojo</module>
 
     </modules>
-
-    <distributionManagement>
-        <repository>
-            <id>public-repo</id>
-            <url>http://repo.thunisoft.com/maven2/content/repositories/cmptreleases</url>
-        </repository>
-        <snapshotRepository>
-            <id>public-snapshots</id>
-            <url>http://repo.thunisoft.com/maven2/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -39,10 +29,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <mybatis-version>1.3.2</mybatis-version>
-        <pagehelper-version>5.0.4</pagehelper-version>
-        <fastjson-version>1.2.46</fastjson-version>
-        <jsonwebtoken-version>0.10.5</jsonwebtoken-version>
+        <mybatis.version>1.3.2</mybatis.version>
+        <pagehelper.version>5.0.4</pagehelper.version>
+        <fastjson.version>1.2.46</fastjson.version>
+        <jsonwebtoken.version>0.10.5</jsonwebtoken.version>
+        <tap.version>1.0.0</tap.version>
+        <dzfy.version>2.4.1-SNAPSHOT</dzfy.version>
         <shiro.version>1.4.0-RC2</shiro.version>
         <spring-cloud.version>Finchley.SR1</spring-cloud.version>
     </properties>
@@ -61,7 +53,13 @@
             <dependency>
                 <groupId>com.thunisoft.dzfy</groupId>
                 <artifactId>dzfy-core</artifactId>
-                <version>2.4.1-SNAPSHOT</version>
+                <version>${dzfy.version}</version>
+            </dependency>
+            <!--crypto-->
+            <dependency>
+                <groupId>com.thunisoft.tap</groupId>
+                <artifactId>tap-commons-crypto</artifactId>
+                <version>${tap.version}</version>
             </dependency>
             <!-- shiro -->
             <dependency>
@@ -98,25 +96,25 @@
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-api</artifactId>
-                <version>${jsonwebtoken-version}</version>
+                <version>${jsonwebtoken.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-impl</artifactId>
-                <version>${jsonwebtoken-version}</version>
+                <version>${jsonwebtoken.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-jackson</artifactId>
-                <version>${jsonwebtoken-version}</version>
+                <version>${jsonwebtoken.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <!--json-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>${fastjson-version}</version>
+                <version>${fastjson.version}</version>
             </dependency>
 
         </dependencies>

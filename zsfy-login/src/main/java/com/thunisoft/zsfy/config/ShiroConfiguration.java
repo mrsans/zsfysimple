@@ -65,6 +65,7 @@ public class ShiroConfiguration extends DefaultWebSessionManager {
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login/**");
         chainsMap.put("/user/**","anon");
+        chainsMap.put("/token/**","anon");
         //首页
         //shiroFilterFactoryBean.setSuccessUrl("/index");
         //错误页面，认证不通过跳转

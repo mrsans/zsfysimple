@@ -1,7 +1,6 @@
 package com.thunisoft.zsfy.config;
 
 import com.thunisoft.zsfy.bean.WxAccount;
-import com.thunisoft.zsfy.service.IWxAccount;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -15,9 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Description:
  */
 public class ZsfyShiroRealm extends AuthorizingRealm {
-
-    @Autowired
-    private IWxAccount wxAccountService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -41,7 +37,7 @@ public class ZsfyShiroRealm extends AuthorizingRealm {
         if (token.getPrincipal() == null) {
             throw new UnknownAccountException();
         }
-        final WxAccount wxAccount = wxAccountService.login(token.getUsername());
+        final WxAccount wxAccount = null;//wxAccountService.login(token.getUsername());
         if (wxAccount == null) {
             //这里返回后会报出对应异常
             throw new UnknownAccountException();
