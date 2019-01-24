@@ -1,6 +1,7 @@
 package com.thunisoft.zsfy.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.thunisoft.zsfy.bean.RequestParams;
 import com.thunisoft.zsfy.response.BaseResponse;
 
 /**
@@ -38,5 +39,5 @@ public interface ILoginService {
      * @param:
      * @return:
      */
-    boolean authPassword(String username, String password, String userType);
+    boolean authPassword(RequestParams params);
 }

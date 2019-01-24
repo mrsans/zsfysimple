@@ -47,4 +47,8 @@ public class RequestParams {
 
     private String proUserType;
 
+    private String name;
+
+    private String zjhm;
+
 }

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.thunisoft.dzfy.security.RSAUtil;
 import com.thunisoft.dzfy.utils.MD5Util;
+import com.thunisoft.zsfy.bean.RequestParams;
 import com.thunisoft.zsfy.constant.APIUrls;
 import com.thunisoft.zsfy.pojo.TProUser;
 import com.thunisoft.zsfy.response.BaseResponse;
@@ -108,22 +109,37 @@ public class LoginServiceImpl implements ILoginService {
      * @return:
      */
     @Override
-    public boolean authPassword(String username, String password, String userType) {
+    public boolean authPassword(RequestParams params) {
         boolean isEqPwd = false;
-        switch (userType) {
-            case "1":
-                isEqPwd = this.dsrLogin(username, password, userType);
+        String aim = params.getAim();
+        switch (aim) {
+            case "dsrZjhmLogin"://当事人证件号码登录
+                isEqPwd = this.xcxLoginByZjhm(params.getUserType(),params.getLoginType(),params.getName(),params.getZjhm(),params.getXcxOpenId());
                 break;
-            case "2":
+            case "dsrCommonLogin"://当事人账号密码登录
+                isEqPwd = this.dsrLogin(params.getUsername(),params.getPassword(),params.getUserType());
+                break;
+            case "lsLogin"://律师登录
                 lsLogin();
                 break;
-            case "3":
+            case "fgLogin"://法官登录
                 fgLogin();
+                break;
+            case "dsrAutoLogin"://当事人自动登录
+                break;
+            case "fgAutoLogin" ://法官自动登录
+                break;
+            case "lsAutoLogin"://律师自动登录
                 break;
             default:
                 break;
         }
         return isEqPwd;
+    }
+
+    private boolean xcxLoginByZjhm(String userType, String loginType, String name, String zjhm, String xcxOpenId) {
+
+        return false;
     }
 
     /**

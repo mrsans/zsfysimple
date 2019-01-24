@@ -2,6 +2,7 @@ package com.thunisoft.zsfy.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thunisoft.zsfy.bean.RequestParams;
 import com.thunisoft.zsfy.constant.Constants;
 import com.thunisoft.zsfy.constant.RedisKeys;
 import com.thunisoft.zsfy.constant.TimeExpiration;
@@ -31,9 +32,6 @@ public class LoginController {
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
     private ILoginService loginService;
 
     @GetMapping("/login")
@@ -44,7 +42,7 @@ public class LoginController {
 //        subject.login(token);
 //        final WxAccount wxAccount =  "";//this.wxAccount.login(username);
         String wxAccount = "{'1': 'xm'}";
-        final String jsonWx = objectMapper.writeValueAsString(wxAccount);
+        final String jsonWx = wxAccount;//objectMapper.writeValueAsString(wxAccount);
         final String jwt = JWTUtils.createJWT(jsonWx);
         final String r_token = String.format("%s_%s", RedisKeys.R_TOKEN, tokenAuth);
         stringRedisTemplate.opsForValue().set(r_token, jwt, TimeExpiration.THREE_MONTHS, TimeUnit.SECONDS);
@@ -91,5 +89,15 @@ public class LoginController {
     public String authPassword(@RequestParam("username")String username, @RequestParam("password")String password, @RequestParam("userType")String userType) {
         final boolean b = loginService.authPassword(username, password, userType);
         return "ssss";
+    }
+
+    @GetMapping("/xcxRealLogin")
+    public Object login(RequestParams params,
+                        @CookieValue(Constants.CookiesKey.TOKEN_AUTH) String tokenAuth) throws JsonProcessingException {
+
+        final String r_token = String.format("%s_%s", RedisKeys.R_TOKEN, tokenAuth);
+        //stringRedisTemplate.opsForValue().set(r_token, jwt, TimeExpiration.THREE_MONTHS, TimeUnit.SECONDS);
+        loginService.authPassword(params);
+        return "success";
     }
 }
