@@ -21,5 +21,16 @@ public class RequestParams {
 
     private String zyzh4Lp;
 
+    private String dzlp;
+
+    private String zyzh4Sj;
+
+    private String sjhm;
+
+    private String yzm;
+
+    private String timestamp;
+
+    private String fyid;
 
 }
