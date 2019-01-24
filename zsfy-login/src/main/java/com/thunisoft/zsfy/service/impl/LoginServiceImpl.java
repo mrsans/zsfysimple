@@ -115,11 +115,14 @@ public class LoginServiceImpl implements ILoginService {
                 isEqPwd = this.dsrLogin(username, password, userType);
                 break;
             case "2":
-//                lsLogin();
+                lsLogin();
+                break;
+            case "3":
+                fgLogin();
+                break;
+            default:
+                break;
         }
-
-
-
         return isEqPwd;
     }
 
