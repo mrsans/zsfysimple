@@ -37,6 +37,8 @@ public class ShiroConfiguration extends DefaultWebSessionManager {
         securityManager.setRealm(myShiroRealm());
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setSessionIdUrlRewritingEnabled(false);
+        sessionManager.setSessionIdCookieEnabled(false);
+        securityManager.setSessionManager(sessionManager);
         return securityManager;
     }
     /**

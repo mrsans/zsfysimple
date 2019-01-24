@@ -65,7 +65,6 @@ public class LoginServiceImpl implements ILoginService {
             HttpEntity<Map<String, String>> httpEntity = new HttpEntity<>(params, null);
             final ResponseEntity<String> responseEntity1 = restTemplate.postForEntity(APIUrls.PubAPIS.AUTHENTICATION_OF_TEMPLOGIN, httpEntity, String.class);
             final String s = restTemplate.postForObject(APIUrls.PubAPIS.AUTHENTICATION_OF_TEMPLOGIN, params, String.class);
-
             return null;
         } catch (UnsupportedEncodingException e) {
             return null;
