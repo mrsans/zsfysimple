@@ -2,9 +2,6 @@ package com.thunisoft.zsfy.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thunisoft.zsfy.bean.LoginBean;
-import com.thunisoft.zsfy.bean.UserType;
-import com.thunisoft.zsfy.bean.WxAccount;
 import com.thunisoft.zsfy.constant.Constants;
 import com.thunisoft.zsfy.constant.RedisKeys;
 import com.thunisoft.zsfy.constant.TimeExpiration;
@@ -84,8 +81,15 @@ public class LoginController {
 
     @GetMapping("/relogin")
     @ResponseBody
-    public String relogin (@RequestParam("loginId")String loginId, @RequestParam("userType")String userType) {
-        final String response = loginService.apiDoTempLogin(loginId, userType);
+    public BaseResponse relogin (@RequestParam("loginId")String loginId, @RequestParam("userType")String userType) {
+        final BaseResponse response = loginService.apiDoTempLogin(loginId, userType);
         return response;
+    }
+
+    @GetMapping("/authPassword")
+    @ResponseBody
+    public String authPassword(@RequestParam("username")String username, @RequestParam("password")String password, @RequestParam("userType")String userType) {
+        final boolean b = loginService.authPassword(username, password, userType);
+        return "ssss";
     }
 }

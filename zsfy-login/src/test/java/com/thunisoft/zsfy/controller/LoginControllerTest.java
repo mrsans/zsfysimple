@@ -51,4 +51,17 @@ public class LoginControllerTest {
         System.out.println(content);
     }
 
+
+    @Test
+    public void authPassword() throws Exception {
+        final String content = mockMvc.perform(get("/authPassword")
+                .param("username", "wangyg")
+                .param("userType","2")
+                .param("password","123qwe")
+                .contentType(MediaType.MULTIPART_FORM_DATA))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        System.out.println(content);
+    }
 }

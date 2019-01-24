@@ -4,30 +4,30 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.thunisoft.dzfy.security.RSAUtil;
 import com.thunisoft.dzfy.utils.MD5Util;
-import com.thunisoft.summer.component.crypto.CryptConsts;
-import com.thunisoft.summer.component.crypto.CryptUtil;
-import com.thunisoft.zsfy.bean.LoginBean;
 import com.thunisoft.zsfy.constant.APIUrls;
+import com.thunisoft.zsfy.pojo.TProUser;
 import com.thunisoft.zsfy.response.BaseResponse;
 import com.thunisoft.zsfy.service.ILoginService;
 import com.thunisoft.zsfy.utils.ZsfyRSAUtil;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.httpclient.HostConfiguration;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.NestedServletException;
 
 import java.io.UnsupportedEncodingException;
+import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,6 +38,8 @@ import java.util.Map;
  */
 @Service
 public class LoginServiceImpl implements ILoginService {
+
+    private String ALGORITHMNAME = "MD5";
 
     @Autowired
     private RestTemplate restTemplate;
@@ -52,7 +54,7 @@ public class LoginServiceImpl implements ILoginService {
     }
 
     @Override
-    public String apiDoTempLogin(String loginId, String userType) {
+    public BaseResponse<String> apiDoTempLogin(String loginId, String userType) {
         final BaseResponse baseResponse = this.apiGetCurrectTime();
         final String timestamp = String.valueOf(baseResponse.getData());
         final PublicKey publicKey = RSAUtil.getPublicKey(ZsfyRSAUtil.LOGIN_WEB_PUBLIC);
@@ -71,18 +73,77 @@ public class LoginServiceImpl implements ILoginService {
             params.add("key", keyRSA);
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set("systemid", "zsfy");
-
-            httpHeaders.set("authcode", ZsfyRSAUtil.aaa());
+            httpHeaders.set("authcode", ZsfyRSAUtil.getAuthcode());
             HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, httpHeaders);
-            final ResponseEntity<String> responseEntity1 = restTemplate.postForEntity(APIUrls.PubAPIS.AUTHENTICATION_OF_TEMPLOGIN, httpEntity, String.class);
-//            final String s = restTemplate.postForObject(APIUrls.PubAPIS.AUTHENTICATION_OF_TEMPLOGIN, params, String.class);
-//            final ResponseEntity<String> forEntity = restTemplate.getForEntity(APIUrls.PubAPIS.AUTHENTICATION_OF_TEMPLOGIN, String.class, params);
+            final ResponseEntity<BaseResponse> baseResponseEntry = restTemplate.postForEntity(APIUrls.PubAPIS.AUTHENTICATION_OF_TEMPLOGIN, httpEntity, BaseResponse.class);
+            if (baseResponseEntry.getStatusCode() == HttpStatus.OK) {
+                return baseResponse;
+            }
             return null;
         } catch (UnsupportedEncodingException e) {
             return null;
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public JSONObject apiLogin(String username, String password, String userType) {
+        MultiValueMap multiValueMap = new LinkedMultiValueMap();
+        multiValueMap.add("userType", userType);
+        multiValueMap.add("loginId", username);
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(multiValueMap, null);
+        final String result = restTemplate.postForObject(APIUrls.PubAPIS.PROUSERBYLOGINID, httpEntity, String.class);
+        final JSONObject jsonObject = JSON.parseObject(result);
+        if (jsonObject.getBoolean("success")) {
+            return jsonObject;
+        }
+        return null;
+    }
+
+    /**
+     * @deprecation: 验证用户名和密码
+     *
+     * @param:
+     * @return:
+     */
+    @Override
+    public boolean authPassword(String username, String password, String userType) {
+        boolean isEqPwd = false;
+        switch (userType) {
+            case "1":
+                isEqPwd = this.dsrLogin(username, password, userType);
+                break;
+            case "2":
+//                lsLogin();
+        }
+
+
+
+        return isEqPwd;
+    }
+
+    /**
+     * @deprecation: 当事人登录
+     *
+     * @param:  username ： 用户名
+     * @param:  passowrd ： 密码
+     * @param:  userType ： 用户类型
+     * @return:
+     */
+    private boolean dsrLogin(String username, String password, String userType) {
+        boolean isEqPwd = false;
+        SimpleHash simpleHash = new SimpleHash(this.ALGORITHMNAME, password, null, 0);
+        final JSONObject jsonObject = this.apiLogin(username, password, userType);
+        if (jsonObject != null) {
+            final String data = jsonObject.getString("data");
+            if (StringUtils.isNotBlank(data)) {
+                List<TProUser> userList = JSON.parseArray(data, TProUser.class);
+                final String cPassword = userList.get(0).getCPassword();
+                isEqPwd = StringUtils.equalsIgnoreCase(simpleHash.toString(), cPassword);
+            }
+        }
+        return isEqPwd;
     }
 
 }

@@ -33,6 +33,10 @@ public abstract class APIUrls {
          * 用于登录
          */
         String AUTHENTICATION_OF_TEMPLOGIN = BASE_URL + "/api/authentication/doTempLogin.htm";
+        /**
+         * 用于认证
+         */
+        String PROUSERBYLOGINID = BASE_URL + "/api/zsfy/user/getProUserByLoginId.htm";
 
     }
 

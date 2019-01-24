@@ -15,6 +15,7 @@
         <module>zsfy-common</module>
         <module>zsfy-dsr</module>
         <module>zsfy-pojo</module>
+        <module>zsfy-client</module>
 
     </modules>
 

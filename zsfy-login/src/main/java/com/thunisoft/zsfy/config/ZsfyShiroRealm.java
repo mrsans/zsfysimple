@@ -6,6 +6,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @Author ZhPJ
@@ -14,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Description:
  */
 public class ZsfyShiroRealm extends AuthorizingRealm {
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -34,6 +38,7 @@ public class ZsfyShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         //加这一步的目的是在Post请求的时候会先进认证，然后在到请求
+
         if (token.getPrincipal() == null) {
             throw new UnknownAccountException();
         }
@@ -47,4 +52,7 @@ public class ZsfyShiroRealm extends AuthorizingRealm {
             return simpleAuthenticationInfo;
         }
     }
+
+
+
 }

@@ -1,9 +1,7 @@
 package com.thunisoft.zsfy.service;
 
-import com.thunisoft.zsfy.bean.LoginBean;
+import com.alibaba.fastjson.JSONObject;
 import com.thunisoft.zsfy.response.BaseResponse;
-
-import java.io.IOException;
 
 /**
  * @Author ZhPJ
@@ -23,7 +21,22 @@ public interface ILoginService {
      *     "message": "提示信息"
      *     "data": "当前用户的sessionId"
      */
-    String apiDoTempLogin(String  loginId, String userType);
+    BaseResponse<String> apiDoTempLogin(String loginId, String userType);
 
+    /**
+     * @deprecation: 第一次登录
+     *
+     * @param: username 用户名
+     * @param: userType 用户类型
+     * @return:
+     */
+    JSONObject apiLogin(String username, String password, String userType);
 
+    /**
+     * @deprecation: 验证用户名和密码
+     *
+     * @param:
+     * @return:
+     */
+    boolean authPassword(String username, String password, String userType);
 }
