@@ -56,12 +56,12 @@ public class LoginController {
     }
 
     @GetMapping("/token")
-    public String login(HttpServletResponse response) {
+    public void login(HttpServletResponse response) {
         final String uuidNoDivider = UUIDHelper.getUUIDNoDivider();
         Cookie cookie = new Cookie(Constants.CookiesKey.TOKEN_AUTH, uuidNoDivider.toUpperCase());
+        cookie.setHttpOnly(true);
         response.setContentType("text/html;charset=UTF-8");
         response.addCookie(cookie);
-        return "/login";
     }
 
     @GetMapping("/logout")

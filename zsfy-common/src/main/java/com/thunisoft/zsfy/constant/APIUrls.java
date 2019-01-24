@@ -9,6 +9,7 @@ public abstract class APIUrls {
      * 基础路径
      */
     private final static String BASE_URL = "http://172.18.9.80:8080/wsfy-ww/";
+//    private final static String BASE_URL = "http://172.18.40.102:8089/wsfy-ww/";
 
     /**
      * 当事人基础路径

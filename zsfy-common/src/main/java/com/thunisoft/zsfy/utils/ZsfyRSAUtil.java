@@ -4,6 +4,9 @@ package com.thunisoft.zsfy.utils;
  * 
  */
 
+import com.thunisoft.summer.component.crypto.CryptConsts;
+import com.thunisoft.summer.component.crypto.CryptUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -86,4 +89,9 @@ public class ZsfyRSAUtil {
         }
     }
 
+    public static String aaa () {
+        String authcode = CryptUtil.encrypt(CryptConsts.ALGORITHM_AES, "zsfy", "iTf9oHN9s19u");
+        authcode = DigestUtils.md5Hex(authcode);
+        return authcode;
+    }
 }
