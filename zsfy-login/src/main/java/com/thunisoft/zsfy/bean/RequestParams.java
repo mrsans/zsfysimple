@@ -33,4 +33,18 @@ public class RequestParams {
 
     private String fyid;
 
+    private String fy;
+
+    private String sjYzm;
+
+    private String userId;
+
+    private String CTel;
+
+    private String xcxOpenId;
+
+    private String aim;
+
+    private String proUserType;
+
 }
